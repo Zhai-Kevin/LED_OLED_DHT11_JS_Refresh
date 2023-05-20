@@ -1,5 +1,4 @@
 from flask import Flask, render_template, jsonify, request
-import Adafruit_DHT
 import paho.mqtt.client as mqtt
 # Replace with your DHT11 sensor pin number
 DHT_PIN = 4
