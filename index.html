@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ESP32 Control Panel</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            setInterval(function() {
+                $.ajax({
+                    url: '/get_sensor_data',  // The endpoint to get the updated temperature and humidity values
+                    type: 'GET',
+                    success: function(data) {
+                        $('#temperature').text(data.temperature + '°C');  // Update the temperature value
+                        $('#humidity').text(data.humidity + '%');  // Update the humidity value
+                    }
+                });
+            }, 5000);  // Fetch data every 5 seconds (adjust the interval as needed)
+        });
+    </script>
+</head>
+<body>
+    <h1>ESP32 Control Panel</h1>
+    <h2>LED Control</h2>
+    <form method="POST" action="/led">
+        <button type="submit" name="led" value="2" style="font-size: 48px; height: 200px; width: 400px;">LED 2</button><br><br>
+        <button type="submit" name="led" value="3" style="font-size: 48px; height: 200px; width: 400px;">LED 3</button>
+    </form>
+    <h2>DHT11 Sensor Readings</h2>
+    <p style="font-size: 24px; font-weight: bold;">Temperature: <span id="temperature"></span></p>
+    <p style="font-size: 24px; font-weight: bold;">Humidity: <span id="humidity"></span></p>
+</body>
+</html>
